@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Admin Dashboard</title>
+<link rel="icon" href="img/favi.png" type="image/png">
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+:root{
+  --primary:#4f46e5;
+  --dark:#0f172a;
+  --bg:#f1f5f9;
+}
+
+body{
+  background:var(--bg);
+  font-family:Segoe UI, sans-serif;
+}
+
+/* Sidebar */
+.sidebar{
+  width:260px;
+  height:100vh;
+  background:var(--dark);
+  position:fixed;
+  left:0;
+  top:0;
+  color:#fff;
+  transition:.3s;
+  z-index:1000;
+}
+
+.sidebar h4{
+  padding:20px;
+  text-align:center;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.sidebar a{
+  padding:14px 20px;
+  display:flex;
+  gap:12px;
+  color:#cbd5f5;
+  text-decoration:none;
+  align-items:center;
+}
+
+.sidebar a:hover,
+.sidebar a.active{
+  background:rgba(255,255,255,.1);
+  color:#fff;
+}
+
+/* Main */
+.main{
+  margin-left:260px;
+  transition:.3s;
+}
+
+/* Topbar */
+.topbar{
+  background:#fff;
+  padding:15px 25px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+
+.topbar .right{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:var(--primary);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+/* Cards */
+.card{
+  border:none;
+  border-radius:16px;
+}
+
+.stat{
+  background:linear-gradient(135deg,#6366f1,#4338ca);
+  color:#fff;
+}
+
+@media(max-width:992px){
+  .sidebar{left:-260px;}
+  .sidebar.show{left:0;}
+  .main{margin-left:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+     <div class="logo">
+                            <a href="./index.html">
+                                <!-- <img src="img/logo.png" class="logo-light" alt=""> -->
+                                <img src="img/footer-logo.png" class="logo-dark mt-2 " alt="Dark Logo">
+                            </a>
+                        </div>
+ <br>
+  <a class="active" onclick="showSection('dashboard',this)"><i class="bi bi-speedometer2"></i>Dashboard</a>
+  <a onclick="showSection('bookings',this)"><i class="bi bi-calendar-check"></i>Bookings</a>
+  <a onclick="showSection('rooms',this)"><i class="bi bi-door-open"></i>Rooms</a>
+  <a onclick="showSection('customers',this)"><i class="bi bi-people"></i>Customers</a>
+  <a onclick="showSection('settings',this)"><i class="bi bi-gear"></i>Settings</a>
+  <a class="text-danger"><i class="bi bi-box-arrow-right"></i>Logout</a>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+<!-- Topbar -->
+<div class="topbar">
+  <button class="btn btn-dark d-lg-none" onclick="toggleSidebar()">
+    <i class="bi bi-list"></i>
+  </button>
+
+  <h5 class="mb-0">Welcome back, <strong>Admin</strong> 👋</h5>
+
+  <div class="right">
+    <!-- <i class="bi bi-bell fs-5"></i> -->
+    <div class="avatar">A</div>
+  </div>
+</div>
+
+<div class="p-4">
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="content">
+  <div class="row g-4 mb-4">
+    <div class="col-md-3">
+      <div class="card stat p-4 shadow">
+        <h6>Total Bookings</h6>
+        <h2>245</h2>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-4 shadow text-center">
+        <h6>Rooms Available</h6>
+        <h2>18</h2>
+        <div class="progress mt-2">
+          <div class="progress-bar bg-success" style="width:70%"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-4 shadow text-center">
+        <h6>Customers</h6>
+        <h2>180</h2>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-4 shadow text-center">
+        <h6>Revenue</h6>
+        <h2>₹3.2L</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <div class="card shadow p-4">
+        <h5>Recent Bookings</h5>
+        <ul class="list-group mt-3">
+          <li class="list-group-item">John booked Deluxe Room</li>
+          <li class="list-group-item">Mary booked Suite Room</li>
+          <li class="list-group-item">Alex cancelled booking</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card shadow p-4">
+        <h5>Quick Actions</h5>
+        <div class="d-flex gap-3 mt-3 flex-wrap">
+          <button class="btn btn-primary">Add Room</button>
+          <button class="btn btn-success">New Booking</button>
+          <button class="btn btn-warning">View Reports</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKINGS -->
+<div id="bookings" class="content d-none">
+  <div class="card shadow p-4">
+    <h4>Bookings</h4>
+    <table class="table mt-3">
+      <tr><th>ID</th><th>Name</th><th>Status</th></tr>
+      <tr><td>#101</td><td>John</td><td><span class="badge bg-success">Confirmed</span></td></tr>
+      <tr><td>#102</td><td>Mary</td><td><span class="badge bg-warning">Pending</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ROOMS -->
+<div id="rooms" class="content d-none">
+  <h3 class="mb-4">Rooms</h3>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card room-card shadow p-4">
+        <h5>Deluxe Room</h5>
+        <p>₹4,500 / night</p>
+        <span class="badge bg-success">Available</span>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card room-card shadow p-4">
+        <h5>Suite Room</h5>
+        <p>₹7,500 / night</p>
+        <span class="badge bg-danger">Booked</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CUSTOMERS -->
+<div id="customers" class="content d-none">
+  <h3 class="mb-4">Customers</h3>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card shadow p-4 text-center">
+          
+        
+        <i class="bi bi-person-circle fs-1"></i>
+        <h6 class="mt-2">John Doe</h6>
+        
+       <p class="text-muted mb-2"><i class="fa fa-envelope me-2"></i>john@example.com</p>
+        <p class="text-muted mb-3"><i class="fa fa-phone me-2"></i>+1 234 567 890</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow p-4 text-center">
+        <i class="bi bi-person-circle fs-1"></i>
+        <h6 class="mt-2">Mary Jane</h6>
+        <p class="text-muted mb-2"><i class="fa fa-envelope me-2"></i>marry@example.com</p>
+        <p class="text-muted mb-3"><i class="fa fa-phone me-2"></i>+1 234 567 890</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- SETTINGS -->
+<div id="settings" class="content d-none">
+  <div class="card shadow p-4">
+    <h4>Settings</h4>
+    <input class="form-control mb-3" placeholder="Hotel Name">
+    <button class="btn btn-primary">Save</button>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+function showSection(id,el){
+  document.querySelectorAll('.content').forEach(c=>c.classList.add('d-none'));
+  document.getElementById(id).classList.remove('d-none');
+  document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('sidebar').classList.remove('show');
+}
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('show');
+}
+</script>
+
+</body>
+</html>

@@ -2001,6 +2001,61 @@ ul, ol {
 .blog-details-hero li {
     color: #ffffff;
 }
+/* Top right alignment fix */
+.tn-right {
+  display: flex;
+  align-items: right;
+  gap: 12px;
+}
+
+/* Unified button style */
+.action-btn {
+  height: 34px;
+  min-width: 34px;
+  padding: 0 14px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #dfa974;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  background: #c8925f;
+  color: #fff;
+}
+
+/* Icon-only buttons */
+.themeToggle,
+.rtlToggle {
+  width: 34px;
+  padding: 0;
+}
+
+/* Keep icons centered */
+.action-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Mobile spacing fix */
+@media (max-width: 768px) {
+  .tn-right {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
 
 /* ===== DARK MODE ===== */
 html[data-theme="dark"] body {
